@@ -186,3 +186,31 @@ confint(model7, level = 0.95)
 ## Question 7 - Plot
 ggplot(df, aes(x = Genre, y = `Total U.S. Gross`)) +
   geom_boxplot()
+
+## Question 8 – Full Model with Critics
+model8_full <- lm(`Total U.S. Gross` ~ `Opening Gross` + `Critics´ Opinion` + Budget + Genre + MPAA + Sequel, data = df)
+
+summary(model8_full)
+
+## Question 8 - Model Reduced
+model8_reduced <- lm(`Total U.S. Gross` ~ 
+                       `Opening Gross` + 
+                       `Critics´ Opinion` + 
+                       Budget + 
+                       Genre,
+                     data = df)
+
+summary(model8_reduced)
+
+
+## Question 8.c – Prediction and 95% Prediction Interval
+new_movie <- data.frame(
+  `Opening Gross` = 20000000,
+  `Critics´ Opinion` = 79,
+  Budget = 90000000,
+  Genre = "Drama",
+  check.names = FALSE
+)
+
+predict(model8_reduced, newdata = new_movie, interval = "prediction", level = 0.95)
+
