@@ -214,3 +214,9 @@ new_movie <- data.frame(
 
 predict(model8_reduced, newdata = new_movie, interval = "prediction", level = 0.95)
 
+## Question 9 – Interaction Model
+model9 <- lm(`Total U.S. Gross` ~ `Opening Gross` + `Critics´ Opinion` + comedy_dummy + 
+               `Critics´ Opinion`:comedy_dummy + Budget + MPAA + Sequel, data = df)
+
+summary(model9)
+
