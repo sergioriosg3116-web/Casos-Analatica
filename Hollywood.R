@@ -157,3 +157,32 @@ ci_upper_100 <- 100 * (beta_theatres + t_crit * se_theatres)
 point_estimate_100
 ci_lower_100
 ci_upper_100
+
+## Question 7 – Simple Regression
+model7 <- lm(`Total U.S. Gross` ~ `Opening Gross`, data = df)
+
+summary(model7)
+
+
+## Question 7 – Multiple Regression (extended model)
+model7_extended <- lm(`Total U.S. Gross` ~ `Opening Gross` + Budget + Genre + MPAA + Sequel, data = df)
+summary(model7_extended)
+
+
+## Question 7.c – Formal test of the 25% rule
+beta_hat <- coef(model7)["`Opening Gross`"]
+se_beta <- summary(model7)$coefficients["`Opening Gross`", "Std. Error"]
+df_resid_7 <- df.residual(model7)
+
+t_stat_7c <- (beta_hat - 4) / se_beta
+p_value_7c <- 2 * pt(-abs(t_stat_7c), df = df_resid_7)
+
+t_stat_7c
+p_value_7c
+
+## 95% confidence interval for slope
+confint(model7, level = 0.95)
+
+## Question 7 - Plot
+ggplot(df, aes(x = Genre, y = `Total U.S. Gross`)) +
+  geom_boxplot()
