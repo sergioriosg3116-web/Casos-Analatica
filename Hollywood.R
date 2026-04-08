@@ -107,5 +107,25 @@ t_test_gross_r
 ## Question 4 – ROI (R-rated vs Non R-rated)
 t_test_roi_r <- t.test(roi_us ~ r_dummy, data = df)
 
-t_test_roi_r
+t_test_roi_r 
+
+
+## Question 5 – Full Model
+model_full <- lm(`Total U.S. Gross` ~ Budget + Genre + MPAA + `Known Story` + Sequel, data = df)
+
+summary(model_full)
+
+
+## p < 0.10 → se queda
+## p ≥ 0.10 → se elimina
+
+
+## Question 5 – Reduced Model
+model_reduced <- lm(`Total U.S. Gross` ~ Budget + Genre + Sequel, data = df)
+
+summary(model_reduced)
+
+
+## Question 5.c – Interpretation of Sequel coefficient
+coef(model_reduced)
 
