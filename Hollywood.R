@@ -129,3 +129,31 @@ summary(model_reduced)
 ## Question 5.c – Interpretation of Sequel coefficient
 coef(model_reduced)
 
+## Question 6 – Full Model
+model6_full <- lm(`Opening Gross` ~ Budget + Genre + MPAA + `Known Story` + Sequel + `Opening Theatres` + Summer + Holiday + Christmas, data = df)
+
+summary(model6_full)
+
+
+##p < 0.10 → se queda
+
+
+## Question 6 – Reduced Model
+model6_reduced <- lm(`Opening Gross` ~ Budget + MPAA + Sequel + `Opening Theatres` + Summer, data = df)
+
+summary(model6_reduced)
+
+
+## Question 6.d – Effect of 100 Additional Opening Theatres
+beta_theatres <- coef(model6_reduced)["`Opening Theatres`"]
+se_theatres <- summary(model6_reduced)$coefficients["`Opening Theatres`", "Std. Error"]
+df_resid <- df.residual(model6_reduced)
+t_crit <- qt(0.975, df_resid)
+
+point_estimate_100 <- 100 * beta_theatres
+ci_lower_100 <- 100 * (beta_theatres - t_crit * se_theatres)
+ci_upper_100 <- 100 * (beta_theatres + t_crit * se_theatres)
+
+point_estimate_100
+ci_lower_100
+ci_upper_100
